@@ -5,5 +5,5 @@ export const SContainer = styled.View`
   flex: 1;
   background-color: ${({ theme }) => theme.background};
   width: '100%';
-  padding: ${() => useSafeAreaInsets().top}px;
+  padding: ${() => useSafeAreaInsets().top + 46 + 32}px 32px;
 `;

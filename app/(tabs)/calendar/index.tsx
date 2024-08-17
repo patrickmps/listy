@@ -6,6 +6,7 @@ import { DateData, Theme } from 'react-native-calendars/src/types';
 import styled, { useTheme } from 'styled-components/native';
 
 import { ptBR } from '@/utils/localeConfigCalendar';
+import { Text } from 'react-native';
 
 LocaleConfig.locales['pt-br'] = ptBR;
 
@@ -13,13 +14,20 @@ LocaleConfig.defaultLocale = 'pt-br';
 
 export default function TabTwoScreen() {
   const theme = useTheme();
-  const [day, setDay] = useState<DateData>();
+
+  const [day, setDay] = useState<DateData>({
+    dateString: new Date().toLocaleDateString().replace(/\//g, '-').split('-').reverse().join('-'),
+    day: new Date().getDate(),
+    month: new Date().getMonth(),
+    timestamp: new Date().getTime(),
+    year: new Date().getFullYear(),
+  });
 
   const calendarTheme: Theme = {
     calendarBackground: 'transparent',
     dayTextColor: theme.onPrimaryFixedVariant,
-    textMonthFontSize: 14,
     textMonthFontFamily: 'Montserrat-SemiBold',
+    textDayHeaderFontSize: 12,
     monthTextColor: theme.onBackground,
     arrowColor: theme.onBackground,
     todayTextColor: theme.secondary,
@@ -54,6 +62,11 @@ export default function TabTwoScreen() {
         }
         hideExtraDays
       />
+      <Text style={{ color: theme.onBackground }}>
+        {ptBR.dayNames[new Date(day?.timestamp!).getUTCDay()!]} -{' '}
+        {day?.day.toString().padStart(2, '0')} de{' '}
+        {ptBR.monthNames[new Date(day?.timestamp!).getUTCMonth()!]} de {day?.year}
+      </Text>
     </ScreenContainer>
   );
 }
@@ -61,7 +74,6 @@ export default function TabTwoScreen() {
 const CustomCalendar = styled(Calendar)`
   font-family: 'Montserrat-Regular';
   width: 100%;
-  margin-top: 60px;
   background-color: transparent;
   padding: 0;
 `;

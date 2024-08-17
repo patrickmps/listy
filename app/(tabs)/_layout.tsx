@@ -3,9 +3,8 @@ import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
 import { Tabs } from 'expo-router';
 
 import styled, { useTheme } from 'styled-components/native';
-import { Image, Text, View } from 'react-native';
+import { Image } from 'react-native';
 import { useClientOnlyValue } from '@/components/useClientOnlyValue';
-import { Title } from '@/components/Title';
 
 // You can explore the built-in icon families and icons on the web at https://icons.expo.fyi/
 function TabBarIcon(props: {
