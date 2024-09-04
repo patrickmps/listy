@@ -1,5 +1,4 @@
 import { MaterialCommunityIcons } from '@expo/vector-icons';
-import { Alert } from 'react-native';
 import styled from 'styled-components/native';
 
 export const Row = styled.View`

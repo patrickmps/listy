@@ -1,4 +1,4 @@
-import { Pressable, ModalProps, Text, View } from 'react-native';
+import { ModalProps } from 'react-native';
 import {
   CustomModal,
   ModalButton,
