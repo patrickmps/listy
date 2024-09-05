@@ -56,8 +56,8 @@ npm start
 <table>
   <tr>
     <td align="center">
-      <a href="https://github.com/">
-        <img src="https://avatars.githubusercontent.com/u/?v=4" width="100px;" alt="Bruna Silva Profile Picture"/><br>
+      <a href="https://github.com/devBrunaSilva">
+        <img src="https://avatars.githubusercontent.com/u/96504509?v=4" width="100px;" alt="Bruna Silva Profile Picture"/><br>
         <sub>
           <b>Bruna Silva</b>
         </sub>
@@ -72,8 +72,8 @@ npm start
       </a>
     </td>
     <td align="center">
-      <a href="https://github.com/">
-        <img src="https://avatars.githubusercontent.com/u/?v=4" width="100px;" alt="Gabriel Andrade Profile Picture"/><br>
+      <a href="https://github.com/GabrielAndradeSD">
+        <img src="https://avatars.githubusercontent.com/u/180300997?v=4" width="100px;" alt="Gabriel Andrade Profile Picture"/><br>
         <sub>
           <b>Gabriel Andrade</b>
         </sub>
@@ -96,8 +96,8 @@ npm start
       </a>
     </td>
     <td align="center">
-      <a href="https://github.com/">
-        <img src="https://avatars.githubusercontent.com/u/?v=4" width="100px;" alt="Yasmin Miranda Profile Picture"/><br>
+      <a href="https://github.com/euyasmin">
+        <img src="https://avatars.githubusercontent.com/u/133703149?v=4" width="100px;" alt="Yasmin Miranda Profile Picture"/><br>
         <sub>
           <b>Yasmin Miranda</b>
         </sub>
