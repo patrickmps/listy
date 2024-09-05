@@ -153,3 +153,4 @@ const darkMediumContrast: DefaultTheme = {
     },
   },
 };
+export default darkMediumContrast;

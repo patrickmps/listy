@@ -1,4 +1,4 @@
-import { Alert, Modal, Pressable, Text, View } from 'react-native';
+import { Pressable } from 'react-native';
 import { CheckBox } from '../CheckBox';
 import { useState } from 'react';
 import { Column, Row, Icon, Tag, TaskTitle, Time } from './styles';
