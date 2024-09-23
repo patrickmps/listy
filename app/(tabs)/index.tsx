@@ -50,7 +50,7 @@ export default function TabOneScreen() {
           <MaterialCommunityIcons name="filter-variant" size={24} color="white" />
         </TouchableOpacity>
       </View>
-      <Task title="Tarefa 1" date="2024-08-16" time="18:00" />
+      <Task title="Tarefa 1" date="2024-08-16" time="18:00" done />
     </ScreenContainer>
   );
 }
