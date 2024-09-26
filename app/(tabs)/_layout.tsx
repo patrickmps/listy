@@ -29,7 +29,7 @@ export default function TabLayout() {
         headerTitleAlign: 'center',
         headerTitle: () => (
           <Image
-            style={{ width: 100, resizeMode: 'contain' }}
+            style={{ width: 100, height: 100, resizeMode: 'contain' }}
             source={require('@/assets/images/logo.png')}
           />
         ),
@@ -61,9 +61,7 @@ export default function TabLayout() {
             return (
               <CustomBarBtn>
                 <Btn onPress={() => null}>
-                  <Link href="/details">
-                    <TabBarIcon name="plus" color={theme.onPrimary} />
-                  </Link>
+                  <TabBarIcon name="plus" color={theme.onPrimary}></TabBarIcon>
                 </Btn>
               </CustomBarBtn>
             );

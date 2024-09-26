@@ -9,10 +9,11 @@ type TaskProps = {
   date: string;
   time: string;
   showTime?: boolean;
+  done: boolean;
 };
 
-export const Task = ({ title, date, time, showTime = false }: TaskProps) => {
-  const [checked, setChecked] = useState(false);
+export const Task = ({ title, date, time, showTime = false, done }: TaskProps) => {
+  const [checked, setChecked] = useState(done);
   const [modalVisible, setModalVisible] = useState(false);
 
   return (
@@ -25,7 +26,7 @@ export const Task = ({ title, date, time, showTime = false }: TaskProps) => {
             new Date(date).setUTCHours(0, 0, 0, 0) === new Date().setUTCHours(0, 0, 0, 0) && (
               <Tag>hoje</Tag>
             )}
-          {showTime && <Time>18:00</Time>}
+          {showTime && time && <Time>{time}</Time>}
         </Row>
       </Column>
       <ConfirmDialog
