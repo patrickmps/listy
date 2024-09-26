@@ -9,6 +9,7 @@ import { useColorScheme } from '@/components/useColorScheme';
 
 import light from '@/theme/light';
 import dark from '@/theme/dark';
+import { StatusBar } from 'react-native';
 
 export {
   // Catch any errors thrown by the Layout component.
@@ -66,8 +67,22 @@ function RootLayoutNav() {
 
   return (
     <ThemeProvider theme={colorScheme === 'dark' ? dark : light}>
-      <Stack>
+      <StatusBar />
+      <Stack
+        screenOptions={{
+          headerStyle: {
+            backgroundColor: colorScheme === 'dark' ? '#0F1417' : '#F6FAFE',
+          },
+          headerTitleStyle: {
+            fontFamily: 'PlayfairDisplay-SemiBoldItalic',
+            color: '#0F3F51',
+          },
+          headerTitleAlign: 'center',
+          headerTintColor: '#67A1B7',
+          headerShadowVisible: false,
+        }}>
         <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+        <Stack.Screen name="details/index" options={{ title: 'Supermercado' }} />
       </Stack>
     </ThemeProvider>
   );

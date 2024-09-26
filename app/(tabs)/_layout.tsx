@@ -5,6 +5,7 @@ import { Tabs } from 'expo-router';
 import styled, { useTheme } from 'styled-components/native';
 import { Image } from 'react-native';
 import { useClientOnlyValue } from '@/components/useClientOnlyValue';
+import { Link } from 'expo-router';
 
 // You can explore the built-in icon families and icons on the web at https://icons.expo.fyi/
 function TabBarIcon(props: {
@@ -60,7 +61,7 @@ export default function TabLayout() {
             return (
               <CustomBarBtn>
                 <Btn onPress={() => null}>
-                  <TabBarIcon name="plus" color={theme.onPrimary} />
+                  <TabBarIcon name="plus" color={theme.onPrimary}></TabBarIcon>
                 </Btn>
               </CustomBarBtn>
             );
