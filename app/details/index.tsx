@@ -1,9 +1,8 @@
-import { ScreenContainer } from '@/components/ScreenContainer';
-import { ContainerTaskDetail, TaskDetail } from './styles';
+import { Container, ContainerTaskDetail, TaskDetail } from './styles';
 
 export default function Details() {
   return (
-    <ScreenContainer>
+    <Container>
       <ContainerTaskDetail>
         <TaskDetail>
           * Arroz;{'\n'}* Feijão;{'\n'}* Macarrão;{'\n'}* Molho de tomate; {'\n'}* Ketchup, mostarda
@@ -12,6 +11,6 @@ export default function Details() {
           {'\n'}* Sal;
         </TaskDetail>
       </ContainerTaskDetail>
-    </ScreenContainer>
+    </Container>
   );
 }
