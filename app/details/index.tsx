@@ -1,9 +1,14 @@
-import { Container, ContainerTaskDetail, TaskDetail } from './styles';
+import { Tag } from '@/components/Tag';
+import { Row, Container, ContainerTaskDetail, TaskDetail } from './styles';
 
 export default function Details() {
   return (
     <Container>
-      <Tag iconName="calendar-month" title="02/10/24" />
+      <Row>
+        <Tag iconName="tag-outline" title="Mercado" rotateIcon={true} />
+        <Tag iconName="calendar-month" title="02/10/25" rotateIcon={false} />
+        <Tag iconName="clock-outline" title="21:00" rotateIcon={false} />
+      </Row>
       <ContainerTaskDetail>
         <TaskDetail>
           * Arroz;{'\n'}* Feijão;{'\n'}* Macarrão;{'\n'}* Molho de tomate; {'\n'}* Ketchup, mostarda

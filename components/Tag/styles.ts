@@ -6,8 +6,8 @@ export const Container = styled.TouchableOpacity`
   height: 24px;
   flex-direction: row;
   align-items: flex-start;
-  justify-content: space-between;
   margin-bottom: 25px;
+  gap: 5px;
 `;
 
 export const Title = styled.Text`
