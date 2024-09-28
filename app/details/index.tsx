@@ -5,9 +5,9 @@ export default function Details() {
   return (
     <Container>
       <Row>
-        <Tag iconName="tag-outline" title="Mercado" rotateIcon={true} />
-        <Tag iconName="calendar-month" title="02/10/25" rotateIcon={false} />
-        <Tag iconName="clock-outline" title="21:00" rotateIcon={false} />
+        <Tag iconName="tag-outline" title="Mercado" isDisable={true} rotateIcon={true} />
+        <Tag iconName="calendar-month" title="02/10/25" isDisable={true} rotateIcon={false} />
+        <Tag iconName="clock-outline" title="21:00" isDisable={true} rotateIcon={false} />
       </Row>
       <ContainerTaskDetail>
         <TaskDetail>
