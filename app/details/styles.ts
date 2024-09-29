@@ -7,6 +7,11 @@ export const Container = styled.View`
   padding: 32px;
 `;
 
+export const Row = styled.View`
+  flex-direction: row;
+  gap: 16px;
+`;
+
 export const ContainerTaskDetail = styled.View`
   width: 100%;
 `;
