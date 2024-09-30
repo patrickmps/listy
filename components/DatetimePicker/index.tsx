@@ -38,11 +38,9 @@ export function DatetimePicker({ mode, handleData }: DatetimePickerProps) {
     <SafeAreaView style={{ flex: 1 }}>
       <View
         style={{
-          padding: 20,
-          flex: 1,
           display: 'flex',
           justifyContent: 'center',
-          alignItems: 'center',
+          alignItems: 'flex-start',
         }}>
         <Tag
           onPress={showDatePicker}

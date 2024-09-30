@@ -83,6 +83,7 @@ function RootLayoutNav() {
         }}>
         <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
         <Stack.Screen name="details/index" options={{ title: 'Supermercado' }} />
+        <Stack.Screen name="new-task/index" />
       </Stack>
     </ThemeProvider>
   );
