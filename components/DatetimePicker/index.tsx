@@ -6,11 +6,18 @@ import { Tag } from '../Tag';
 type DatetimePickerProps = {
   mode: 'time' | 'date';
   handleData: (data: string) => void;
+  value?: string;
 };
 
-export function DatetimePicker({ mode, handleData }: DatetimePickerProps) {
-  const [selectedDate, setSelectedDate] = useState<string | null>(null);
+export function DatetimePicker({ mode, handleData, value }: DatetimePickerProps) {
   const [datePickerVisible, setDatePickerVisible] = useState(false);
+  const [selectedDate, setSelectedDate] = useState<Date | undefined>(
+    value
+      ? mode === 'date'
+        ? new Date(`${value} 00:00`)
+        : new Date(`2024-10-02 ${value}`)
+      : undefined,
+  );
 
   const showDatePicker = () => {
     setDatePickerVisible(true);
@@ -20,17 +27,31 @@ export function DatetimePicker({ mode, handleData }: DatetimePickerProps) {
     setDatePickerVisible(false);
   };
 
-  const handleConfirm = (date: Date) => {
-    const dataFormatted =
-      mode === 'date'
-        ? date.toLocaleDateString()
-        : date.toLocaleTimeString([], {
-            hour: '2-digit',
-            minute: '2-digit',
-          });
+  const dateToString = (date: Date, mode: 'time' | 'date') => {
+    if (mode === 'date') return date.toLocaleDateString('pt-BR');
 
-    setSelectedDate(dataFormatted);
-    handleData(dataFormatted);
+    return date.toLocaleTimeString([], {
+      hour: '2-digit',
+      minute: '2-digit',
+    });
+  };
+
+  function formatDate(date: Date): string {
+    const year = date.getUTCFullYear();
+    const month = (date.getUTCMonth() + 1).toString().padStart(2, '0'); // Meses são de 0 a 11
+    const day = date.getUTCDate().toString().padStart(2, '0');
+
+    return `${year}-${month}-${day}`;
+  }
+
+  const handleConfirm = (date: Date) => {
+    const formattedTime = date.toLocaleTimeString([], {
+      hour: '2-digit',
+      minute: '2-digit',
+    });
+
+    setSelectedDate(date);
+    handleData(mode === 'date' ? formatDate(date) : formattedTime);
     hideDatePicker();
   };
 
@@ -44,11 +65,18 @@ export function DatetimePicker({ mode, handleData }: DatetimePickerProps) {
         }}>
         <Tag
           onPress={showDatePicker}
-          title={selectedDate ? selectedDate : mode === 'date' ? 'Sem data' : 'Sem horário'}
+          title={
+            selectedDate
+              ? dateToString(selectedDate, mode)
+              : mode === 'date'
+                ? 'Sem data'
+                : 'Sem horário'
+          }
           iconName={mode === 'date' ? 'calendar-month' : 'clock-outline'}
           rotateIcon={false}
         />
         <DateTimePickerModal
+          date={selectedDate}
           isVisible={datePickerVisible}
           mode={mode}
           is24Hour

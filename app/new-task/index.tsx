@@ -15,7 +15,7 @@ const validationSchema = Yup.object().shape({
 export default function NewTask() {
   const initialValues = {
     date: '',
-    time: '',
+    time: '18:00',
     tag: '',
     description: '',
     title: '',
@@ -29,8 +29,8 @@ export default function NewTask() {
       {({ handleChange, handleSubmit, values }) => (
         <Container>
           <Row>
-            <DatetimePicker mode="date" handleData={handleChange('date')} />
-            <DatetimePicker mode="time" handleData={handleChange('time')} />
+            <DatetimePicker mode="date" value={values.date} handleData={handleChange('date')} />
+            <DatetimePicker mode="time" value={values.time} handleData={handleChange('time')} />
           </Row>
 
           <Btn onPress={(e) => handleSubmit(e as unknown as FormEvent<HTMLFormElement>)}>
