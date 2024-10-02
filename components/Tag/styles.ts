@@ -2,7 +2,7 @@ import { MaterialCommunityIcons } from '@expo/vector-icons';
 import styled from 'styled-components/native';
 
 export const Container = styled.TouchableOpacity`
-  width: 91px;
+  width: max-content;
   height: 24px;
   flex-direction: row;
   align-items: flex-start;
