@@ -4,16 +4,14 @@ import { ScreenContainer } from '@/components/ScreenContainer';
 import { Select } from '@/components/Select';
 import { Task } from '@/components/Task';
 import { tasks } from '@/utils/data';
-import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { useState } from 'react';
-import { TouchableOpacity, View, FlatList } from 'react-native';
+import { View } from 'react-native';
 
 export default function TabOneScreen() {
   const [selectedCategory, setSelectedCategory] = useState<string>('');
 
   const [filteredTasks, setFilteredTasks] = useState<Task[]>(tasks);
 
-  // Função de filtragem passada para o componente Filter
   const handleFilterOption = (option: string) => {
     let newTasks = [...tasks];
 
@@ -27,7 +25,7 @@ export default function TabOneScreen() {
       newTasks = newTasks.filter((task) => task.done);
     }
 
-    setFilteredTasks(newTasks); // Atualiza as tarefas filtradas
+    setFilteredTasks(newTasks);
   };
 
   return (
@@ -61,21 +59,7 @@ export default function TabOneScreen() {
         />
         <Filter onFilter={handleFilterOption} />
       </View>
-      {/*<Task title="Tarefa 1" date="2024-08-16" time="18:00" done />*/}
-      <FlatList
-        data={filteredTasks}
-        keyExtractor={(item) => item.title}
-        renderItem={({ item }) => (
-          <Task
-            title={item.title}
-            date={item.date}
-            time={item.time}
-            done={item.done}
-            showTime={true}
-          />
-        )}
-        showsVerticalScrollIndicator={false}
-      />
+      <Task title="Tarefa 1" date="2024-08-16" time="18:00" done />
     </ScreenContainer>
   );
 }
