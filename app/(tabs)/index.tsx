@@ -1,16 +1,17 @@
+import { Task as TaskType } from '@/@types/task';
 import { Filter } from '@/components/Filter';
 import { Input } from '@/components/Input';
 import { ScreenContainer } from '@/components/ScreenContainer';
 import { Select } from '@/components/Select';
 import { Task } from '@/components/Task';
-import { tasks } from '@/utils/data';
+import { data as tasks } from '@/utils/data';
 import { useState } from 'react';
-import { View } from 'react-native';
+import { FlatList, View } from 'react-native';
 
 export default function TabOneScreen() {
   const [selectedCategory, setSelectedCategory] = useState<string>('');
 
-  const [filteredTasks, setFilteredTasks] = useState<Task[]>(tasks);
+  const [filteredTasks, setFilteredTasks] = useState<TaskType[]>(tasks);
 
   const handleFilterOption = (option: string) => {
     let newTasks = [...tasks];
@@ -59,7 +60,20 @@ export default function TabOneScreen() {
         />
         <Filter onFilter={handleFilterOption} />
       </View>
-      <Task title="Tarefa 1" date="2024-08-16" time="18:00" done />
+      <FlatList
+        data={tasks}
+        keyExtractor={(item) => item.title}
+        renderItem={({ item }) => (
+          <Task
+            title={item.title}
+            date={item.date}
+            time={item.time}
+            done={item.done}
+            showTime={true}
+          />
+        )}
+        showsVerticalScrollIndicator={false}
+      />
     </ScreenContainer>
   );
 }
