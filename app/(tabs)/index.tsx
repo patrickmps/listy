@@ -2,9 +2,10 @@ import { Input } from '@/components/Input';
 import { ScreenContainer } from '@/components/ScreenContainer';
 import { Select } from '@/components/Select';
 import { Task } from '@/components/Task';
+import { tasks } from '@/utils/data';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { useState } from 'react';
-import { TouchableOpacity, View } from 'react-native';
+import { FlatList, TouchableOpacity, View } from 'react-native';
 
 export default function TabOneScreen() {
   const [selectedCategory, setSelectedCategory] = useState<string>('');
@@ -50,7 +51,20 @@ export default function TabOneScreen() {
           <MaterialCommunityIcons name="filter-variant" size={24} color="white" />
         </TouchableOpacity>
       </View>
-      <Task title="Tarefa 1" date="2024-08-16" time="18:00" done />
+      <FlatList
+        data={tasks}
+        keyExtractor={(item) => item.title}
+        renderItem={({ item }) => (
+          <Task
+            title={item.title}
+            date={item.date}
+            time={item.time}
+            done={item.done}
+            showTime={true}
+          />
+        )}
+        showsVerticalScrollIndicator={false}
+      />
     </ScreenContainer>
   );
 }
