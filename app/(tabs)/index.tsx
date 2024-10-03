@@ -4,7 +4,7 @@ import { Input } from '@/components/Input';
 import { ScreenContainer } from '@/components/ScreenContainer';
 import { Select } from '@/components/Select';
 import { Task } from '@/components/Task';
-import { useTaskContext } from '@/contexts/TaskContext';
+import { useTaskContext } from '@/hooks/useTaskContext';
 import { useEffect, useState } from 'react';
 import { FlatList, View } from 'react-native';
 import styled from 'styled-components/native';
