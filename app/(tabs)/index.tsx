@@ -2,10 +2,19 @@ import { Filter } from '@/components/Filter';
 import { Input } from '@/components/Input';
 import { ScreenContainer } from '@/components/ScreenContainer';
 import { Select } from '@/components/Select';
-import { Task } from '@/components/Task';
+import { Task as TaskComponent } from '@/components/Task';
 import { tasks } from '@/utils/data';
 import { useState } from 'react';
-import { FlatList, TouchableOpacity, View } from 'react-native';
+import { FlatList, View } from 'react-native';
+
+interface Task {
+  title: string;
+  date: string;
+  time: string;
+  tag: string;
+  description: string;
+  done: boolean;
+}
 
 export default function TabOneScreen() {
   const [selectedCategory, setSelectedCategory] = useState<string>('');
@@ -60,10 +69,10 @@ export default function TabOneScreen() {
         <Filter onFilter={handleFilterOption} />
       </View>
       <FlatList
-        data={tasks}
+        data={filteredTasks}
         keyExtractor={(item) => item.title}
         renderItem={({ item }) => (
-          <Task
+          <TaskComponent
             title={item.title}
             date={item.date}
             time={item.time}
