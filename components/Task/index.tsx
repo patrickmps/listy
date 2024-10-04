@@ -1,6 +1,15 @@
 import { useState } from 'react';
 import { CheckBox } from '../CheckBox';
-import { ContainerInfos, ContainerTask, Icon, Tag, TaskTitle, Time, Wrapper, WrapperTask } from './styles';
+import {
+  ContainerInfos,
+  ContainerTask,
+  Icon,
+  Tag,
+  TaskTitle,
+  Time,
+  Wrapper,
+  WrapperTask,
+} from './styles';
 import { Pressable } from 'react-native';
 import { ConfirmDialog } from '../ConfirmDialog';
 
@@ -16,16 +25,11 @@ export const Task = ({ title, date, time, showTime = false, done }: TaskProps) =
   const [checked, setChecked] = useState(done);
   const [modalVisible, setModalVisible] = useState(false);
 
-  
   return (
     <Wrapper>
-      <CheckBox
-        checked={checked}
-        onChange={() => setChecked(!checked)}
-      />
+      <CheckBox checked={checked} onChange={() => setChecked(!checked)} />
 
       <WrapperTask>
-
         <ContainerTask>
           <TaskTitle checked={checked}>{title}</TaskTitle>
 

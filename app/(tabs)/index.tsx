@@ -10,7 +10,7 @@ import { FlatList, View } from 'react-native';
 interface Task {
   title: string;
   date: string;
-  time: string;
+  time?: string;
   tag: string;
   description: string;
   done: boolean;
