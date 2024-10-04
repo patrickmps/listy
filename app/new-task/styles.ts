@@ -45,31 +45,31 @@ export const TextArea = styled(TextInput).attrs(({ theme }) => ({
   color: ${({ theme }) => theme.onBackground};
 `;
 
-export const TextTitle = styled(TextInput).attrs({
-  multiline: true,
-  textAlignVertical: 'top',
-})`
-  padding: 4px;
-  color: ${({ theme }) => theme.onPrimaryContainer};
-  height: 56px;
-  text-align-vertical: top;
-  margintop: 10px;
+export const TextTitle = styled(TextInput).attrs(({ theme }) => ({
+  placeholderTextColor: theme.onBackground,
+}))<{ $error?: boolean }>`
+  padding: 8px;
+  height: 40px;
+  margin: 12px 0 4px 0;
   flex-wrap: wrap;
   font-family: 'Montserrat-Regular';
   font-weight: 600;
   font-size: 20px;
-  color: ${({ theme }) => theme.onPrimaryContainer};
+  color: ${({ theme }) => theme.onBackground};
+  border: 2px solid ${(props) => (props.$error ? props.theme.error : props.theme.background)};
+  border-radius: 8px;
 `;
 
-export const TextArea = styled(TextInput).attrs({
+export const TextArea = styled(TextInput).attrs(({ theme }) => ({
   multiline: true,
   textAlignVertical: 'top',
-})`
+  placeholderTextColor: theme.onBackground,
+}))`
   flex: 1;
   padding: 8px;
   height: 150px;
   text-align-vertical: top;
-  margintop: 10px;
+  margin: 12px 0;
   flex-wrap: wrap;
   font-size: 16px;
   font-family: 'Montserrat-Regular';
@@ -92,6 +92,10 @@ export const TextBtn = styled.Text`
   font-weight: 600;
   font-size: 20px;
   color: ${({ theme }) => theme.onPrimary};
+`;
+
+export const ErrorMessage = styled.Text`
+  color: ${({ theme }) => theme.error};
 `;
 
 export const ErrorMessage = styled.Text`

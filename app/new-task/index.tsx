@@ -77,6 +77,7 @@ export default function NewTask() {
             $error={!!errors.title}
           />
           {errors.title ? <ErrorMessage>{errors.title}</ErrorMessage> : null}
+          {errors.title ? <ErrorMessage>{errors.title}</ErrorMessage> : null}
           <Row>
             <DatetimePicker mode="date" value={values.date} handleData={handleChange('date')} />
             <DatetimePicker mode="time" value={values.time} handleData={handleChange('time')} />
