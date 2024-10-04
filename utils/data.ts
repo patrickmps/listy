@@ -74,6 +74,7 @@ export const data = [
   {
     title: 'Exercícios físicos',
     date: '2024-09-08',
+    time: '10:20',
     tag: 'Saúde',
     description: 'Correr no parque',
     done: true,
@@ -109,6 +110,7 @@ export const data = [
   {
     title: 'Alongamento',
     date: '2024-09-08',
+    time: '18:10',
     tag: 'Saúde',
     description: 'Alongar os músculos',
     done: true,
