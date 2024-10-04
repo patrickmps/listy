@@ -3,27 +3,24 @@ import styled from 'styled-components/native';
 
 export const Wrapper = styled.View`
   flex-direction: row;
-  align-items: center; 
+  align-items: center;
   margin-bottom: 24px;
 `;
 
 export const WrapperTask = styled.View`
-  flex: 1; 
+  flex: 1;
   flex-direction: row;
   justify-content: space-between;
-  align-items: center; 
+  align-items: center;
   margin-left: 16px;
 `;
 
-export const ContainerTask = styled.View`
-
-`;
+export const ContainerTask = styled.View``;
 
 export const ContainerInfos = styled.View`
   flex-direction: row;
   margin-right: 16px;
 `;
-
 
 export const TaskTitle = styled.Text<{ checked: boolean }>`
   font-family: ${({ checked }) =>
@@ -50,7 +47,6 @@ export const Time = styled.Text`
   font-size: 16px;
   color: ${({ theme }) => theme.primary};
 `;
-
 
 export const Icon = styled(MaterialCommunityIcons).attrs(({ theme }) => ({
   size: 24,

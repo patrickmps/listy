@@ -3,6 +3,7 @@ import { Filter } from '@/components/Filter';
 import { Input } from '@/components/Input';
 import { ScreenContainer } from '@/components/ScreenContainer';
 import { Select } from '@/components/Select';
+import { Task } from '@/components/Task';
 import { data as tasks } from '@/utils/data';
 import { useState } from 'react';
 import { FlatList, View } from 'react-native';
@@ -63,7 +64,7 @@ export default function TabOneScreen() {
         data={filteredTasks}
         keyExtractor={(item) => item.title}
         renderItem={({ item }) => (
-          <TaskComponent
+          <Task
             title={item.title}
             date={item.date}
             time={item.time}
