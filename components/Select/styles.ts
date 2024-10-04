@@ -34,6 +34,7 @@ export const CustomDropdown = styled(Dropdown<{ name: string; value: string }>).
 )`
   flex: 1;
   height: 40px;
+  max-height: 40px;
   border-radius: 8px;
   padding: 0 8px;
   background-color: ${({ theme }) => theme.primaryContainer};
