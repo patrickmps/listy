@@ -78,8 +78,8 @@ export default function NewTask() {
           />
           {errors.title ? <ErrorMessage>{errors.title}</ErrorMessage> : null}
           <Row>
-            <DatetimePicker mode="date" handleData={handleChange('date')} />
-            <DatetimePicker mode="time" handleData={handleChange('time')} />
+            <DatetimePicker mode="date" value={values.date} handleData={handleChange('date')} />
+            <DatetimePicker mode="time" value={values.time} handleData={handleChange('time')} />
           </Row>
           <Select
             labelField="name"
