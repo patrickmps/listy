@@ -21,6 +21,7 @@ export default function NewTask() {
   const taskId = params.taskId;
   console.log('🚀 ~ NewTask ~ taskId:', taskId);
 
+  const { addTask } = useTaskContext();
   const initialValues = {
     date: '',
     time: '',
