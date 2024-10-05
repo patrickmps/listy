@@ -1,5 +1,6 @@
 import { Tag } from '@/components/Tag';
 import { Row, Container, ContainerTaskDetail, TaskDetail } from './styles';
+import { FloatingButton } from '@/components/FloatingButton';
 
 export default function Details() {
   return (
@@ -17,6 +18,7 @@ export default function Details() {
           {'\n'}* Sal;
         </TaskDetail>
       </ContainerTaskDetail>
+      <FloatingButton />
     </Container>
   );
 }

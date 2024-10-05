@@ -1,11 +1,12 @@
+import { FlatList, View, Button } from 'react-native';
+import { useState } from 'react';
+import { router } from 'expo-router';
 import { Filter } from '@/components/Filter';
 import { Input } from '@/components/Input';
 import { ScreenContainer } from '@/components/ScreenContainer';
 import { Select } from '@/components/Select';
 import { Task as TaskComponent } from '@/components/Task';
 import { tasks } from '@/utils/data';
-import { useState } from 'react';
-import { FlatList, View } from 'react-native';
 
 interface Task {
   title: string;
@@ -68,6 +69,7 @@ export default function TabOneScreen() {
         />
         <Filter onFilter={handleFilterOption} />
       </View>
+
       <FlatList
         data={filteredTasks}
         keyExtractor={(item) => item.title}
@@ -81,6 +83,11 @@ export default function TabOneScreen() {
           />
         )}
         showsVerticalScrollIndicator={false}
+      />
+
+      <Button
+        title="Details"
+        onPress={() => router.navigate({ pathname: '/details', params: { taskId: '001' } })}
       />
     </ScreenContainer>
   );
