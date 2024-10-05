@@ -1,5 +1,7 @@
-import { useState } from 'react';
+import { useTaskContext } from '@/contexts/TaskContext';
 import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
+import { router, useLocalSearchParams } from 'expo-router';
+import { useState } from 'react';
 import Animated, {
   Easing,
   Extrapolation,
@@ -11,10 +13,8 @@ import Animated, {
   withTiming,
 } from 'react-native-reanimated';
 import { useTheme } from 'styled-components';
-import { Btn, Container, ContentContainer, DotsBtn } from './styles';
-import { router, useLocalSearchParams } from 'expo-router';
 import { ConfirmDialog } from '../ConfirmDialog';
-import { useTaskContext } from '@/contexts/TaskContext';
+import { Btn, Container, ContentContainer, DotsBtn } from './styles';
 
 export function FloatingButton() {
   const [modalVisible, setModalVisible] = useState(false);
