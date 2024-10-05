@@ -18,11 +18,13 @@ const validationSchema = Yup.object().shape({
 export default function NewTask() {
   const { addTask } = useTaskContext();
   const params = useLocalSearchParams();
+  const taskId = params.taskId;
+  console.log('🚀 ~ NewTask ~ taskId:', taskId);
 
   const initialValues = {
     date: '',
     time: '',
-    tag: 'categoria 9',
+    tag: '',
     description: '',
     title: '',
     done: false,
