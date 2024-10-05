@@ -61,7 +61,7 @@ export default function TabLayout() {
             return (
               <CustomBarBtn>
                 <Btn onPress={() => null}>
-                  <Link href="/new-task">
+                  <Link href={{ pathname: '/new-task', params: { name: 'Nova tarefa' } }}>
                     <TabBarIcon name="plus" color={theme.onPrimary} />
                   </Link>
                 </Btn>
