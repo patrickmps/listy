@@ -1,8 +1,9 @@
-import { FormEvent } from 'react';
+import { DatetimePicker } from '@/components/DatetimePicker';
+import { useTaskContext } from '@/contexts/TaskContext';
 import { Formik } from 'formik';
+import { FormEvent } from 'react';
 import * as Yup from 'yup';
 import { Btn, Container, Row, TextBtn } from './styles';
-import { DatetimePicker } from '@/components/DatetimePicker';
 
 const validationSchema = Yup.object().shape({
   date: Yup.string(),
@@ -13,19 +14,21 @@ const validationSchema = Yup.object().shape({
 });
 
 export default function NewTask() {
+  const { addTask } = useTaskContext();
   const initialValues = {
     date: '',
     time: '18:00',
     tag: '',
     description: '',
     title: '',
+    done: false,
   };
 
   return (
     <Formik
       initialValues={initialValues}
       validationSchema={validationSchema}
-      onSubmit={(values) => console.log(values)}>
+      onSubmit={(values) => addTask(values)}>
       {({ handleChange, handleSubmit, values }) => (
         <Container>
           <Row>
