@@ -1,7 +1,7 @@
 import { TaskProps } from '@/@types/task';
 import { FloatingButton } from '@/components/FloatingButton';
 import { Tag } from '@/components/Tag';
-import { useTaskContext } from '@/contexts/TaskContext';
+import { useTaskContext } from '@/hooks/useTaskContext';
 import { Stack, useLocalSearchParams } from 'expo-router';
 import { useEffect, useState } from 'react';
 import { Container, ContainerTaskDetail, Row, TaskDetail } from './styles';

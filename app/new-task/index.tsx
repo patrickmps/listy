@@ -1,6 +1,6 @@
 import { DatetimePicker } from '@/components/DatetimePicker';
 import { Select } from '@/components/Select';
-import { useTaskContext } from '@/contexts/TaskContext';
+import { useTaskContext } from '@/hooks/useTaskContext';
 import { router, Stack, useLocalSearchParams } from 'expo-router';
 import { Formik } from 'formik';
 import { FormEvent, useEffect, useState } from 'react';
@@ -76,7 +76,6 @@ export default function NewTask() {
             onBlur={handleBlur('title')}
             $error={!!errors.title}
           />
-          {errors.title ? <ErrorMessage>{errors.title}</ErrorMessage> : null}
           {errors.title ? <ErrorMessage>{errors.title}</ErrorMessage> : null}
           <Row>
             <DatetimePicker mode="date" value={values.date} handleData={handleChange('date')} />

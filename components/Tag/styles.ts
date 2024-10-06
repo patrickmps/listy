@@ -13,7 +13,7 @@ export const Container = styled.TouchableOpacity`
 
 export const Title = styled.Text`
   font-family: 'Montserrat-Regular';
-  font-size: ${PixelRatio.getPixelSizeForLayoutSize(4.5)}px;
+  font-size: ${PixelRatio.getPixelSizeForLayoutSize(4.6)}px;
   color: ${({ theme }) => theme.inversePrimary};
 `;
 

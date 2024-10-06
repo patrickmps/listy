@@ -1,6 +1,6 @@
 import { TaskProps } from '@/@types/task';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { createContext, ReactNode, useContext, useEffect, useState } from 'react';
+import { createContext, ReactNode, useEffect, useState } from 'react';
 import uuid from 'react-native-uuid';
 
 export type TaskContextType = {
@@ -12,7 +12,7 @@ export type TaskContextType = {
   getCategories: () => string[];
 };
 
-const TaskContext = createContext<TaskContextType | undefined>(undefined);
+export const TaskContext = createContext<TaskContextType | undefined>(undefined);
 
 const TASKS_KEY = '@tasks_key';
 
@@ -89,12 +89,4 @@ export const TaskProvider = ({ children }: { children: ReactNode }) => {
       {children}
     </TaskContext.Provider>
   );
-};
-
-export const useTaskContext = () => {
-  const context = useContext(TaskContext);
-  if (!context) {
-    throw new Error('useTaskContext must be used within a TaskProvider');
-  }
-  return context;
 };

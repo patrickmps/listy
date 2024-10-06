@@ -6,7 +6,7 @@ import { DateData } from 'react-native-calendars/src/types';
 
 import { CustomCalendar } from '@/components/CustomCalendar';
 import { Task } from '@/components/Task';
-import { useTaskContext } from '@/contexts/TaskContext';
+import { useTaskContext } from '@/hooks/useTaskContext';
 import { ptBR } from '@/utils/localeConfigCalendar';
 import { FlatList, View } from 'react-native';
 import { DayTitle, EmptyListText } from './styles';

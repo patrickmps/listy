@@ -90,11 +90,6 @@ export default function TabOneScreen() {
         ListEmptyComponent={<EmptyListText>Nenhuma tarefa criada</EmptyListText>}
         showsVerticalScrollIndicator={false}
       />
-
-      <Button
-        title="Details"
-        onPress={() => router.navigate({ pathname: '/details', params: { taskId: '001' } })}
-      />
     </ScreenContainer>
   );
 }
