@@ -1,57 +1,67 @@
-<h1 align="center" style="font-weight: bold;">Listy ✅</h1>
-
 <p align="center">
- <a href="#started">Getting Started</a> • 
- <a href="#tech">Technologies</a> • 
-  <a href="#colab">Collaborators</a> •
- <a href="#contribute">Contribute</a>
+  <img src="./assets/images/logo.png" width="240" alt="Listy Logo" />
 </p>
 
 <p align="center">
-    <b>Simple description of what your project do or how to use it</b>
+ Aplicativo de listas de tarefas e planejamento diário com uma interface limpa e minimalista, permitindo que os usuários criem, gerenciem e visualizem suas tarefas de forma organizada. 
 </p>
 
-<h2 id="layout">🎨 Layout</h2>
+---
 
 <p align="center">
-    <img src="../.github/example.png" alt="Image Example" width="400px">
+ <a href="#started">Primeiros Passos</a> • 
+ <a href="#tech">Tecnologias</a> • 
+  <a href="#colab">Colaboradores</a> •
+ <a href="#contribute">Contribua</a>
 </p>
 
-<h2 id="started">🚀 Getting started</h2>
 
-<h3>Prerequisites</h3>
+### Principais funcionalidades:
+- **Criação de tarefas**: O usuário pode criar tarefas com título e descrição, além de definir data e horário para elas.
+- **Visualização por lista**: As tarefas são exibidas em formato de lista com a opção de marcar como concluídas.
+- **Calendário integrado**: O usuário pode visualizar suas tarefas distribuídas ao longo do mês e acessar detalhes de cada dia.
+- **Classificação de tarefas**: Existe a possibilidade de organizar as tarefas por categorias.
+- **Interface intuitiva**: Ícones claros para adicionar novas tarefas e editar ou excluir as existentes.
 
-- [NodeJS](https://github.com/)
-- [Git 2](https://github.com)
+<h2 id="started">🚀 Primeiros Passos</h2>
 
-<h3>Cloning</h3>
+<h3>Pré-requisitos</h3>
 
-How to clone your project
+- [NodeJS](https://nodejs.org/en/download/package-manager)
+- [Git](https://git-scm.com/downloads)
+
+<h3>Clonando</h3>
+
+Como clonar o projeto:
 
 ```bash
 git clone git@github.com:patrickmps/listy.git
 ```
-
-<h3>Starting</h3>
-
-Install dependencies:
+Acesse a pasta do projeto clonado: 
 ```bash
-cd listy && npm install
+cd listy
 ```
 
-Run the application:
+<h3>Iniciando</h3>
+
+Instale as dependências::
 ```bash
-npm start
+npm install
 ```
 
-<h2 id="technologies">💻 Technologies</h2>
+Execute a aplicação:
+```bash
+npx expo start
+```
+
+<h2 id="technologies">💻 Tecnologias</h2>
 
 - expo
 - react native
 - styled components
 
 
-<h2 id="colab">🤝 Collaborators</h2>
+<h2 id="colab">🤝 Colaboradores</h2>
 
 <table>
   <tr>
@@ -106,17 +116,22 @@ npm start
   </tr>
 </table>
 
-<h2 id="contribute">📫 Contribute</h2>
+<h2 id="contribute">📫 Contribua</h2>
 
-Here you will explain how other developers can contribute to your project. For example, explaining how can create their branches, which patterns to follow and how to open an pull request
+Contribuições são sempre bem-vindas! Se você deseja ajudar a melhorar o Listy, siga os passos abaixo:
 
-1. `git clone git@github.com:patrickmps/listy.git`
-2. `git checkout -b feature/NAME`
-3. Follow commit patterns
-4. Open a Pull Request explaining the problem solved or feature made, if exists, append screenshot of visual modifications and wait for the review!
+1. Faça um fork do repositório.
+2. Crie uma branch para sua feature ou correção de bug: `git checkout -b feature/nome-da-feature`.
+3. Implemente sua solução seguindo os padrões de código do projeto.
+4. Faça commits claros e descritivos: `git commit -m "Descrição da mudança"`
+5. Envie sua branch: `git push origin -u feature/nome-da-feature`
+6. Abra um Pull Request explicando a mudança proposta e, se aplicável, inclua capturas de tela das modificações visuais.
 
-<h3>Documentations that might help</h3>
+Agradecemos por suas contribuições e por ajudar a melhorar o Listy!
 
-[📝 How to create a Pull Request](https://www.atlassian.com/br/git/tutorials/making-a-pull-request)
 
-[💾 Commit pattern](https://gist.github.com/joshbuchea/6f47e86d2510bce28f8e7f42ae84c716)
+<h3>Documentações que podem ajudar</h3>
+
+[📝 Como criar um Pull Request](https://www.atlassian.com/br/git/tutorials/making-a-pull-request)
+
+[💾 Padrões de commits](https://gist.github.com/joshbuchea/6f47e86d2510bce28f8e7f42ae84c716)
