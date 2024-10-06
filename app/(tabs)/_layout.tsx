@@ -59,6 +59,7 @@ export default function TabLayout() {
           tabBarButton(props) {
             return (
               <CustomBarBtn>
+
                 <Btn
                   style={({ pressed }) => {
                     return pressed ? { opacity: 0.5 } : { opacity: 1 };

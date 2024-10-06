@@ -46,9 +46,32 @@ export default function TabOneScreen() {
     setFilteredTasks(newTasks);
   };
 
+  const [filteredTasks, setFilteredTasks] = useState<Task[]>(tasks);
+
+  const handleSearch = (text: string) => {
+    const newTasks = tasks.filter((task) => task.title.toLowerCase().includes(text.toLowerCase()));
+    setFilteredTasks(newTasks);
+  };
+
+  const handleFilterOption = (option: string) => {
+    let newTasks = [...tasks];
+
+    if (option === 'Ordem crescente') {
+      newTasks = newTasks.sort((a, b) => a.title.localeCompare(b.title));
+    } else if (option === 'Ordem decrescente') {
+      newTasks = newTasks.sort((a, b) => b.title.localeCompare(a.title));
+    } else if (option === 'Em aberto') {
+      newTasks = newTasks.filter((task) => !task.done);
+    } else if (option === 'Concluídas') {
+      newTasks = newTasks.filter((task) => task.done);
+    }
+
+    setFilteredTasks(newTasks);
+  };
+
   return (
     <ScreenContainer>
-      <Input />
+      <Input onSearch={handleSearch} />
       <View
         style={{
           flexDirection: 'row',
@@ -82,6 +105,7 @@ export default function TabOneScreen() {
             id={item.id}
             title={item.title}
             date={item.date.split('-').reverse().join('/')}
+
             time={item.time}
             done={item.done}
             showTime={true}

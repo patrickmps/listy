@@ -53,6 +53,19 @@ export default function NewTask() {
     { name: 'Feira', value: 'Feira' },
   ];
 
+  const options = [
+    { name: 'categoria 1', value: 'categoria 1' },
+    { name: 'categoria 2', value: 'categoria 2' },
+    { name: 'categoria 3', value: 'categoria 3' },
+    { name: 'categoria 4', value: 'categoria 4' },
+    { name: 'categoria 5', value: 'categoria 5' },
+    { name: 'categoria 6', value: 'categoria 6' },
+    { name: 'categoria 7', value: 'categoria 7' },
+    { name: 'categoria 8', value: 'categoria 8' },
+    { name: 'categoria 9', value: 'categoria 9' },
+    { name: 'categoria 10', value: 'categoria 10' },
+  ];
+
   return (
     <Formik
       enableReinitialize
