@@ -22,6 +22,11 @@ export default function TabOneScreen() {
 
   const [filteredTasks, setFilteredTasks] = useState<Task[]>(tasks);
 
+  const handleSearch = (text: string) => {
+    const newTasks = tasks.filter((task) => task.title.toLowerCase().includes(text.toLowerCase()));
+    setFilteredTasks(newTasks);
+  };
+
   const handleFilterOption = (option: string) => {
     let newTasks = [...tasks];
 
@@ -40,7 +45,7 @@ export default function TabOneScreen() {
 
   return (
     <ScreenContainer>
-      <Input />
+      <Input onSearch={handleSearch} />
       <View
         style={{
           flexDirection: 'row',
