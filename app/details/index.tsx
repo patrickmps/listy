@@ -1,16 +1,15 @@
-import { Tag } from '@/components/Tag';
-import { Row, Container, ContainerTaskDetail, TaskDetail } from './styles';
+import { TaskProps } from '@/@types/task';
 import { FloatingButton } from '@/components/FloatingButton';
-import { useLocalSearchParams } from 'expo-router';
-import { useEffect, useState } from 'react';
+import { Tag } from '@/components/Tag';
 import { useTaskContext } from '@/contexts/TaskContext';
-import { Task } from '@/@types/task';
-import { Stack } from 'expo-router';
+import { Stack, useLocalSearchParams } from 'expo-router';
+import { useEffect, useState } from 'react';
+import { Container, ContainerTaskDetail, Row, TaskDetail } from './styles';
 
 export default function Details() {
   const { taskId } = useLocalSearchParams();
   const { taskById } = useTaskContext();
-  const [task, setTask] = useState<Task | null>(null);
+  const [task, setTask] = useState<TaskProps | null>(null);
 
   useEffect(() => {
     if (taskId) {
@@ -29,13 +28,13 @@ export default function Details() {
       <Row>
         <Tag
           iconName="tag-outline"
-          title={task.tag || 'Sem categoria'}
+          title={task.category || 'Sem categoria'}
           isDisable={true}
           rotateIcon={true}
         />
         <Tag
           iconName="calendar-month"
-          title={task.date || 'Sem data'}
+          title={task.date.split('-').reverse().join('/') || 'Sem data'}
           isDisable={true}
           rotateIcon={false}
         />

@@ -1,7 +1,7 @@
 import { DatetimePicker } from '@/components/DatetimePicker';
 import { Select } from '@/components/Select';
 import { useTaskContext } from '@/contexts/TaskContext';
-import { Stack, useLocalSearchParams, router } from 'expo-router';
+import { router, Stack, useLocalSearchParams } from 'expo-router';
 import { Formik } from 'formik';
 import { FormEvent, useEffect, useState } from 'react';
 import * as Yup from 'yup';
@@ -10,7 +10,7 @@ import { Btn, Container, ErrorMessage, Row, TextArea, TextBtn, TextTitle } from 
 const validationSchema = Yup.object().shape({
   date: Yup.string(),
   time: Yup.string(),
-  tag: Yup.string(),
+  category: Yup.string(),
   description: Yup.string(),
   title: Yup.string().required('Campo obrigatório'),
 });
@@ -23,7 +23,7 @@ export default function NewTask() {
   const [initialValues, setInitialValues] = useState({
     date: '',
     time: '',
-    tag: '',
+    category: '',
     description: '',
     title: '',
     done: false,
@@ -36,7 +36,7 @@ export default function NewTask() {
         setInitialValues({
           date: task.date || '',
           time: task.time || '',
-          tag: task.tag || '',
+          category: task.category || '',
           description: task.description || '',
           title: task.title || '',
           done: task.done || false,
@@ -46,16 +46,11 @@ export default function NewTask() {
   }, [taskId, taskById]);
 
   const options = [
-    { name: 'categoria 1', value: 'categoria 1' },
-    { name: 'categoria 2', value: 'categoria 2' },
-    { name: 'categoria 3', value: 'categoria 3' },
-    { name: 'categoria 4', value: 'categoria 4' },
-    { name: 'categoria 5', value: 'categoria 5' },
-    { name: 'categoria 6', value: 'categoria 6' },
-    { name: 'categoria 7', value: 'categoria 7' },
-    { name: 'categoria 8', value: 'categoria 8' },
-    { name: 'categoria 9', value: 'categoria 9' },
-    { name: 'categoria 10', value: 'categoria 10' },
+    { name: 'Estudos', value: 'Estudos' },
+    { name: 'Trabalho', value: 'Trabalho' },
+    { name: 'Compromissos', value: 'Compromissos' },
+    { name: 'Mercado', value: 'Mercado' },
+    { name: 'Feira', value: 'Feira' },
   ];
 
   return (
@@ -91,8 +86,10 @@ export default function NewTask() {
             valueField="value"
             placeholder="Selecionar"
             data={options}
-            value={values.tag ? options.find((option) => option.value === values.tag) : ''}
-            onChange={(item) => setFieldValue('tag', item.value)}
+            value={
+              values.category ? options.find((option) => option.value === values.category) : ''
+            }
+            onChange={(item) => setFieldValue('category', item.value)}
           />
           <TextArea
             value={values.description}

@@ -1,5 +1,10 @@
+import { TaskProps } from '@/@types/task';
+import { useTaskContext } from '@/contexts/TaskContext';
+import { router } from 'expo-router';
 import { useState } from 'react';
+import { Pressable } from 'react-native';
 import { CheckBox } from '../CheckBox';
+import { ConfirmDialog } from '../ConfirmDialog';
 import {
   ContainerInfos,
   ContainerTask,
@@ -10,22 +15,13 @@ import {
   Wrapper,
   WrapperTask,
 } from './styles';
-import { Pressable } from 'react-native';
-import { ConfirmDialog } from '../ConfirmDialog';
-import { router } from 'expo-router';
-import { useTaskContext } from '@/contexts/TaskContext';
 
-type TaskProps = {
-  id: string;
-  title: string;
-  date: string;
-  time?: string;
+type TaskComponentProps = TaskProps & {
   showTime?: boolean;
-  done: boolean;
 };
 
-export const Task = ({ id, title, date, time, showTime = false, done }: TaskProps) => {
-  const { deleteTask } = useTaskContext();
+export const Task = ({ id, title, date, time, showTime = false, done }: TaskComponentProps) => {
+  const { deleteTask, updateTask } = useTaskContext();
   const [checked, setChecked] = useState(done);
   const [modalVisible, setModalVisible] = useState(false);
 
@@ -34,11 +30,18 @@ export const Task = ({ id, title, date, time, showTime = false, done }: TaskProp
     setModalVisible(false);
   };
 
+  const handleUpdate = () => {
+    setChecked(!checked);
+    updateTask(id, { done: !checked });
+  };
+
   return (
     <Wrapper>
-      <CheckBox checked={checked} onChange={() => setChecked(!checked)} />
+      <CheckBox checked={checked} onChange={handleUpdate} />
 
-      <WrapperTask onPress={() => router.push(`/details?taskId=${id}`)}>
+      <WrapperTask
+        style={({ pressed }) => (pressed ? { opacity: 0.5 } : { opacity: 1 })}
+        onPress={() => router.push(`/details?taskId=${id}`)}>
         <ContainerTask>
           <TaskTitle checked={checked}>{title}</TaskTitle>
 
@@ -56,7 +59,9 @@ export const Task = ({ id, title, date, time, showTime = false, done }: TaskProp
           onRequestClose={() => setModalVisible(!modalVisible)}
           onAction={handleDelete}
         />
-        <Pressable onPress={() => setModalVisible(!modalVisible)}>
+        <Pressable
+          style={({ pressed }) => (pressed ? { opacity: 0.5 } : { opacity: 1 })}
+          onPress={() => setModalVisible(!modalVisible)}>
           <Icon name="trash-can-outline" />
         </Pressable>
       </WrapperTask>

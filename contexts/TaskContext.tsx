@@ -1,14 +1,15 @@
-import { Task } from '@/@types/task';
+import { TaskProps } from '@/@types/task';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import { createContext, ReactNode, useContext, useEffect, useState } from 'react';
 import uuid from 'react-native-uuid';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export type TaskContextType = {
-  tasks: Task[];
-  addTask: (task: Omit<Task, 'id'>) => void;
-  updateTask: (id: string, updatedTask: Partial<Task>) => void;
+  tasks: TaskProps[];
+  addTask: (task: Omit<TaskProps, 'id'>) => void;
+  updateTask: (id: string, updatedTask: Partial<TaskProps>) => void;
   deleteTask: (id: string) => void;
-  taskById: (id: string) => Task | undefined;
+  taskById: (id: string) => TaskProps | undefined;
+  getCategories: () => string[];
 };
 
 const TaskContext = createContext<TaskContextType | undefined>(undefined);
@@ -16,9 +17,7 @@ const TaskContext = createContext<TaskContextType | undefined>(undefined);
 const TASKS_KEY = '@tasks_key';
 
 export const TaskProvider = ({ children }: { children: ReactNode }) => {
-  const [tasks, setTasks] = useState<Task[]>([]);
-
-  console.log(tasks);
+  const [tasks, setTasks] = useState<TaskProps[]>([]);
 
   const loadTasks = async () => {
     try {
@@ -31,7 +30,7 @@ export const TaskProvider = ({ children }: { children: ReactNode }) => {
     }
   };
 
-  const saveTasks = async (tasksToSave: Task[]) => {
+  const saveTasks = async (tasksToSave: TaskProps[]) => {
     try {
       await AsyncStorage.setItem(TASKS_KEY, JSON.stringify(tasksToSave));
     } catch (error) {
@@ -39,7 +38,7 @@ export const TaskProvider = ({ children }: { children: ReactNode }) => {
     }
   };
 
-  const addTask = (task: Omit<Task, 'id'>) => {
+  const addTask = (task: Omit<TaskProps, 'id'>) => {
     const id = uuid.v4().toString();
     const newTask = { ...task, id };
     setTasks((prevTasks) => {
@@ -49,7 +48,7 @@ export const TaskProvider = ({ children }: { children: ReactNode }) => {
     });
   };
 
-  const updateTask = (id: string, updatedTask: Partial<Task>) => {
+  const updateTask = (id: string, updatedTask: Partial<TaskProps>) => {
     setTasks((prevTasks) => {
       const updatedTasks = prevTasks.map((task) =>
         task.id === id ? { ...task, ...updatedTask } : task,
@@ -71,12 +70,22 @@ export const TaskProvider = ({ children }: { children: ReactNode }) => {
     return tasks.find((task) => task.id === id);
   };
 
+  const getCategories = () => {
+    return tasks.reduce<string[]>((acc, task) => {
+      if (task?.category && !acc.includes(task.category)) {
+        acc.push(task.category);
+      }
+      return acc;
+    }, []);
+  };
+
   useEffect(() => {
     loadTasks();
   }, []);
 
   return (
-    <TaskContext.Provider value={{ tasks, addTask, updateTask, deleteTask, taskById }}>
+    <TaskContext.Provider
+      value={{ tasks, addTask, updateTask, deleteTask, taskById, getCategories }}>
       {children}
     </TaskContext.Provider>
   );
