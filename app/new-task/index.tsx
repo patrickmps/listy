@@ -1,9 +1,9 @@
 import { DatetimePicker } from '@/components/DatetimePicker';
 import { Select } from '@/components/Select';
 import { useTaskContext } from '@/contexts/TaskContext';
-import { Stack, useLocalSearchParams } from 'expo-router';
+import { Stack, useLocalSearchParams, router } from 'expo-router';
 import { Formik } from 'formik';
-import { FormEvent } from 'react';
+import { FormEvent, useEffect, useState } from 'react';
 import * as Yup from 'yup';
 import { Btn, Container, ErrorMessage, Row, TextArea, TextBtn, TextTitle } from './styles';
 
@@ -16,19 +16,34 @@ const validationSchema = Yup.object().shape({
 });
 
 export default function NewTask() {
-  const { addTask } = useTaskContext();
+  const { addTask, updateTask, taskById } = useTaskContext();
   const params = useLocalSearchParams();
-  const taskId = params.taskId;
-  console.log('🚀 ~ NewTask ~ taskId:', taskId);
+  const taskId = params.taskId as string;
 
-  const initialValues = {
+  const [initialValues, setInitialValues] = useState({
     date: '',
     time: '',
     tag: '',
     description: '',
     title: '',
     done: false,
-  };
+  });
+
+  useEffect(() => {
+    if (taskId) {
+      const task = taskById(taskId);
+      if (task) {
+        setInitialValues({
+          date: task.date || '',
+          time: task.time || '',
+          tag: task.tag || '',
+          description: task.description || '',
+          title: task.title || '',
+          done: task.done || false,
+        });
+      }
+    }
+  }, [taskId, taskById]);
 
   const options = [
     { name: 'categoria 1', value: 'categoria 1' },
@@ -45,9 +60,17 @@ export default function NewTask() {
 
   return (
     <Formik
+      enableReinitialize
       initialValues={initialValues}
       validationSchema={validationSchema}
-      onSubmit={(values) => addTask(values)}>
+      onSubmit={(values) => {
+        if (taskId) {
+          updateTask(taskId, values);
+        } else {
+          addTask(values);
+        }
+        router.navigate('/(tabs)');
+      }}>
       {({ handleChange, handleSubmit, handleBlur, values, errors, setFieldValue }) => (
         <Container>
           <Stack.Screen options={{ title: (params.name as string) || 'Tarefa' }} />
@@ -78,7 +101,7 @@ export default function NewTask() {
             onBlur={handleBlur('description')}
           />
           <Btn onPress={(e) => handleSubmit(e as unknown as FormEvent<HTMLFormElement>)}>
-            <TextBtn> Salvar tarefa</TextBtn>
+            <TextBtn>{taskId ? 'Salvar Alterações' : 'Salvar Tarefa'}</TextBtn>
           </Btn>
         </Container>
       )}

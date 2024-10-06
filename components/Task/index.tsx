@@ -12,8 +12,11 @@ import {
 } from './styles';
 import { Pressable } from 'react-native';
 import { ConfirmDialog } from '../ConfirmDialog';
+import { router } from 'expo-router';
+import { useTaskContext } from '@/contexts/TaskContext';
 
 type TaskProps = {
+  id: string;
   title: string;
   date: string;
   time?: string;
@@ -21,15 +24,21 @@ type TaskProps = {
   done: boolean;
 };
 
-export const Task = ({ title, date, time, showTime = false, done }: TaskProps) => {
+export const Task = ({ id, title, date, time, showTime = false, done }: TaskProps) => {
+  const { deleteTask } = useTaskContext();
   const [checked, setChecked] = useState(done);
   const [modalVisible, setModalVisible] = useState(false);
+
+  const handleDelete = () => {
+    deleteTask(id);
+    setModalVisible(false);
+  };
 
   return (
     <Wrapper>
       <CheckBox checked={checked} onChange={() => setChecked(!checked)} />
 
-      <WrapperTask>
+      <WrapperTask onPress={() => router.push(`/details?taskId=${id}`)}>
         <ContainerTask>
           <TaskTitle checked={checked}>{title}</TaskTitle>
 
@@ -45,7 +54,7 @@ export const Task = ({ title, date, time, showTime = false, done }: TaskProps) =
         <ConfirmDialog
           visible={modalVisible}
           onRequestClose={() => setModalVisible(!modalVisible)}
-          onAction={() => console.log('Excluir Tarefa')}
+          onAction={handleDelete}
         />
         <Pressable onPress={() => setModalVisible(!modalVisible)}>
           <Icon name="trash-can-outline" />

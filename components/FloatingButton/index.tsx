@@ -14,9 +14,11 @@ import { useTheme } from 'styled-components';
 import { Btn, Container, ContentContainer, DotsBtn } from './styles';
 import { router, useLocalSearchParams } from 'expo-router';
 import { ConfirmDialog } from '../ConfirmDialog';
+import { useTaskContext } from '@/contexts/TaskContext';
 
 export function FloatingButton() {
   const [modalVisible, setModalVisible] = useState(false);
+  const { deleteTask } = useTaskContext();
 
   const firstValue = useSharedValue(30);
   const secondValue = useSharedValue(30);
@@ -72,9 +74,11 @@ export function FloatingButton() {
   });
 
   const handleDeleteTask = () => {
-    console.log(`Excluir Tarefa ${params.taskId}`);
-
-    router.replace('/');
+    if (params.taskId) {
+      deleteTask(params.taskId as string);
+      setModalVisible(false);
+      router.replace('/');
+    }
   };
 
   return (

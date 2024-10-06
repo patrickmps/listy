@@ -7,7 +7,7 @@ export const Wrapper = styled.View`
   margin-bottom: 24px;
 `;
 
-export const WrapperTask = styled.View`
+export const WrapperTask = styled.Pressable`
   flex: 1;
   flex-direction: row;
   justify-content: space-between;
