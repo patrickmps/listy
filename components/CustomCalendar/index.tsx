@@ -1,13 +1,13 @@
-import { useTheme } from 'styled-components/native';
-import { StyledCalendar } from './styles';
+import { TaskProps } from '@/@types/task';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { DateData, Theme } from 'react-native-calendars/src/types';
-import { Task } from '@/@types/task';
+import { useTheme } from 'styled-components/native';
+import { StyledCalendar } from './styles';
 
 type CustomCalendarProps = {
   day: DateData;
   setDay: (day: DateData) => void;
-  tasks: Task[];
+  tasks: TaskProps[];
 };
 
 export const CustomCalendar = ({ day, setDay, tasks }: CustomCalendarProps) => {

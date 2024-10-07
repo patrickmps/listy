@@ -1,31 +1,28 @@
-import { FlatList, View, Button } from 'react-native';
-import { useState } from 'react';
-import { router } from 'expo-router';
+import { TaskProps } from '@/@types/task';
 import { Filter } from '@/components/Filter';
 import { Input } from '@/components/Input';
 import { ScreenContainer } from '@/components/ScreenContainer';
 import { Select } from '@/components/Select';
-import { Task as TaskComponent } from '@/components/Task';
-import { tasks } from '@/utils/data';
-
-interface Task {
-  title: string;
-  date: string;
-  time?: string;
-  tag: string;
-  description: string;
-  done: boolean;
-}
+import { Task } from '@/components/Task';
+import { useTaskContext } from '@/hooks/useTaskContext';
+import { useEffect, useState } from 'react';
+import { FlatList, View } from 'react-native';
+import styled from 'styled-components/native';
 
 export default function TabOneScreen() {
+  const { tasks, getCategories } = useTaskContext();
   const [selectedCategory, setSelectedCategory] = useState<string>('');
+  const [filteredTasks, setFilteredTasks] = useState<TaskProps[]>([]);
 
-  const [filteredTasks, setFilteredTasks] = useState<Task[]>(tasks);
+  const [categories, setCategories] = useState<string[]>([]);
 
-  const handleSearch = (text: string) => {
-    const newTasks = tasks.filter((task) => task.title.toLowerCase().includes(text.toLowerCase()));
-    setFilteredTasks(newTasks);
-  };
+  useEffect(() => {
+    setFilteredTasks(tasks);
+    if (selectedCategory && selectedCategory !== 'todas') {
+      setFilteredTasks(tasks.filter((task) => task.category === selectedCategory));
+    }
+    setCategories(getCategories());
+  }, [getCategories, tasks, selectedCategory]);
 
   const handleFilterOption = (option: string) => {
     let newTasks = [...tasks];
@@ -38,8 +35,19 @@ export default function TabOneScreen() {
       newTasks = newTasks.filter((task) => !task.done);
     } else if (option === 'Concluídas') {
       newTasks = newTasks.filter((task) => task.done);
+    } else {
+      newTasks = tasks;
     }
 
+    if (selectedCategory && selectedCategory !== 'todas') {
+      newTasks = newTasks.filter((task) => task.category === selectedCategory);
+    }
+
+    setFilteredTasks(newTasks);
+  };
+
+  const handleSearch = (text: string) => {
+    const newTasks = tasks.filter((task) => task.title.toLowerCase().includes(text.toLowerCase()));
     setFilteredTasks(newTasks);
   };
 
@@ -57,17 +65,10 @@ export default function TabOneScreen() {
         <Select
           labelField="name"
           valueField="value"
+          placeholder="Selecionar"
           data={[
-            { name: 'categoria 1', value: 'categoria 1' },
-            { name: 'categoria 2', value: 'categoria 2' },
-            { name: 'categoria 3', value: 'categoria 3' },
-            { name: 'categoria 4', value: 'categoria 4' },
-            { name: 'categoria 5', value: 'categoria 5' },
-            { name: 'categoria 6', value: 'categoria 6' },
-            { name: 'categoria 7', value: 'categoria 7' },
-            { name: 'categoria 8', value: 'categoria 8' },
-            { name: 'categoria 9', value: 'categoria 9' },
-            { name: 'categoria 10', value: 'categoria 10' },
+            ...categories.map((category) => ({ name: category, value: category })),
+            { name: 'Todas as tarefas', value: 'todas' },
           ]}
           value={selectedCategory}
           onChange={(item) => setSelectedCategory(item.value)}
@@ -77,23 +78,30 @@ export default function TabOneScreen() {
 
       <FlatList
         data={filteredTasks}
+        style={{ flexShrink: 0 }}
         keyExtractor={(item) => item.title}
+        contentContainerStyle={{ gap: 5 }}
+        ListFooterComponent={() => <View style={{ height: 40 }}></View>}
         renderItem={({ item }) => (
-          <TaskComponent
+          <Task
+            id={item.id}
             title={item.title}
-            date={item.date}
+            date={item.date.split('-').reverse().join('/')}
             time={item.time}
             done={item.done}
             showTime={true}
           />
         )}
+        ListEmptyComponent={<EmptyListText>Nenhuma tarefa criada</EmptyListText>}
         showsVerticalScrollIndicator={false}
-      />
-
-      <Button
-        title="Details"
-        onPress={() => router.navigate({ pathname: '/details', params: { taskId: '001' } })}
       />
     </ScreenContainer>
   );
 }
+
+const EmptyListText = styled.Text`
+  font-family: 'Montserrat-Regular';
+  font-size: 14px;
+  color: ${({ theme }) => theme.onBackground};
+  margin: 20px 0;
+`;

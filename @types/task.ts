@@ -1,8 +1,9 @@
-export type Task = {
+export type TaskProps = {
+  id: string;
   title: string;
   date: string;
   time?: string;
-  tag?: string;
+  category?: string;
   description?: string;
   done: boolean;
 };

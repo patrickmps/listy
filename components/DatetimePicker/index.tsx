@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { SafeAreaView, View } from 'react-native';
 import DateTimePickerModal from 'react-native-modal-datetime-picker';
 import { Tag } from '../Tag';
@@ -69,8 +69,8 @@ export function DatetimePicker({ mode, handleData, value }: DatetimePickerProps)
             selectedDate
               ? dateToString(selectedDate, mode)
               : mode === 'date'
-                ? 'Sem data'
-                : 'Sem horário'
+                ? value?.split('-').reverse().join('/') || 'Sem data'
+                : value || 'Sem horário'
           }
           iconName={mode === 'date' ? 'calendar-month' : 'clock-outline'}
           rotateIcon={false}

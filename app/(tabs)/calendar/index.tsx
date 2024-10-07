@@ -4,18 +4,19 @@ import { useState } from 'react';
 import { LocaleConfig } from 'react-native-calendars';
 import { DateData } from 'react-native-calendars/src/types';
 
+import { CustomCalendar } from '@/components/CustomCalendar';
+import { Task } from '@/components/Task';
+import { useTaskContext } from '@/hooks/useTaskContext';
 import { ptBR } from '@/utils/localeConfigCalendar';
 import { FlatList, View } from 'react-native';
 import { DayTitle, EmptyListText } from './styles';
-import { Task } from '@/components/Task';
-import { CustomCalendar } from '@/components/CustomCalendar';
-import { tasks } from '@/utils/data';
 
 LocaleConfig.locales['pt-br'] = ptBR;
 
 LocaleConfig.defaultLocale = 'pt-br';
 
 export default function TabTwoScreen() {
+  const { tasks } = useTaskContext();
   const today = new Date();
 
   const [day, setDay] = useState<DateData>({

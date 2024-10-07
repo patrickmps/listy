@@ -1,5 +1,7 @@
-import { useState } from 'react';
+import { useTaskContext } from '@/hooks/useTaskContext';
 import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
+import { router, useLocalSearchParams } from 'expo-router';
+import { useState } from 'react';
 import Animated, {
   Easing,
   Extrapolation,
@@ -11,12 +13,12 @@ import Animated, {
   withTiming,
 } from 'react-native-reanimated';
 import { useTheme } from 'styled-components';
-import { Btn, Container, ContentContainer, DotsBtn } from './styles';
-import { router, useLocalSearchParams } from 'expo-router';
 import { ConfirmDialog } from '../ConfirmDialog';
+import { Btn, Container, ContentContainer, DotsBtn } from './styles';
 
 export function FloatingButton() {
   const [modalVisible, setModalVisible] = useState(false);
+  const { deleteTask } = useTaskContext();
 
   const firstValue = useSharedValue(30);
   const secondValue = useSharedValue(30);
@@ -72,9 +74,11 @@ export function FloatingButton() {
   });
 
   const handleDeleteTask = () => {
-    console.log(`Excluir Tarefa ${params.taskId}`);
-
-    router.replace('/');
+    if (params.taskId) {
+      deleteTask(params.taskId as string);
+      setModalVisible(false);
+      router.replace('/');
+    }
   };
 
   return (

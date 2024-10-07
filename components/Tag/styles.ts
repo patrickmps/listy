@@ -1,4 +1,5 @@
 import { MaterialCommunityIcons } from '@expo/vector-icons';
+import { PixelRatio } from 'react-native';
 import styled from 'styled-components/native';
 
 export const Container = styled.TouchableOpacity`
@@ -12,7 +13,7 @@ export const Container = styled.TouchableOpacity`
 
 export const Title = styled.Text`
   font-family: 'Montserrat-Regular';
-  font-size: 16px;
+  font-size: ${PixelRatio.getPixelSizeForLayoutSize(4.6)}px;
   color: ${({ theme }) => theme.inversePrimary};
 `;
 
