@@ -1,10 +1,10 @@
-import React from 'react';
 import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
-import { Tabs } from 'expo-router';
+import { router, Tabs } from 'expo-router';
+import React from 'react';
 
-import styled, { useTheme } from 'styled-components/native';
-import { Image } from 'react-native';
 import { useClientOnlyValue } from '@/components/useClientOnlyValue';
+import { Image } from 'react-native';
+import styled, { useTheme } from 'styled-components/native';
 
 // You can explore the built-in icon families and icons on the web at https://icons.expo.fyi/
 function TabBarIcon(props: {
@@ -28,7 +28,7 @@ export default function TabLayout() {
         headerTitleAlign: 'center',
         headerTitle: () => (
           <Image
-            style={{ width: 100, resizeMode: 'contain' }}
+            style={{ width: 100, height: 100, resizeMode: 'contain' }}
             source={require('@/assets/images/logo.png')}
           />
         ),
@@ -59,7 +59,11 @@ export default function TabLayout() {
           tabBarButton(props) {
             return (
               <CustomBarBtn>
-                <Btn onPress={() => null}>
+                <Btn
+                  style={({ pressed }) => {
+                    return pressed ? { opacity: 0.5 } : { opacity: 1 };
+                  }}
+                  onPress={() => router.navigate('/new-task')}>
                   <TabBarIcon name="plus" color={theme.onPrimary} />
                 </Btn>
               </CustomBarBtn>
@@ -89,7 +93,7 @@ const CustomBarBtn = styled.View`
   width: 72px;
   height: 72px;
 `;
-const Btn = styled.TouchableOpacity`
+const Btn = styled.Pressable`
   background-color: ${({ theme }) => theme.palettes.primary[80]};
   color: ${({ theme }) => theme.onPrimary};
   padding: 10px;

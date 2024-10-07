@@ -1,79 +1,49 @@
 import { ScreenContainer } from '@/components/ScreenContainer';
-import { MaterialCommunityIcons } from '@expo/vector-icons';
-import { useState } from 'react';
-import { Calendar, LocaleConfig } from 'react-native-calendars';
-import { DateData, Theme } from 'react-native-calendars/src/types';
-import styled, { useTheme } from 'styled-components/native';
 
+import { useState } from 'react';
+import { LocaleConfig } from 'react-native-calendars';
+import { DateData } from 'react-native-calendars/src/types';
+
+import { CustomCalendar } from '@/components/CustomCalendar';
+import { Task } from '@/components/Task';
+import { useTaskContext } from '@/hooks/useTaskContext';
 import { ptBR } from '@/utils/localeConfigCalendar';
-import { Text } from 'react-native';
+import { FlatList, View } from 'react-native';
+import { DayTitle, EmptyListText } from './styles';
 
 LocaleConfig.locales['pt-br'] = ptBR;
 
 LocaleConfig.defaultLocale = 'pt-br';
 
 export default function TabTwoScreen() {
-  const theme = useTheme();
+  const { tasks } = useTaskContext();
+  const today = new Date();
 
   const [day, setDay] = useState<DateData>({
-    dateString: new Date().toLocaleDateString().replace(/\//g, '-').split('-').reverse().join('-'),
-    day: new Date().getDate(),
-    month: new Date().getMonth(),
-    timestamp: new Date().getTime(),
-    year: new Date().getFullYear(),
+    dateString: today.toLocaleDateString().replace(/\//g, '-').split('-').reverse().join('-'),
+    day: today.getDate(),
+    month: today.getMonth(),
+    timestamp: today.getTime(),
+    year: today.getFullYear(),
   });
-
-  const calendarTheme: Theme = {
-    calendarBackground: 'transparent',
-    dayTextColor: theme.onPrimaryFixedVariant,
-    textMonthFontFamily: 'Montserrat-SemiBold',
-    textDayHeaderFontSize: 12,
-    monthTextColor: theme.onBackground,
-    arrowColor: theme.onBackground,
-    todayTextColor: theme.secondary,
-    selectedDayBackgroundColor: theme.secondary,
-    selectedDayTextColor: theme.onSecondary,
-    arrowStyle: {
-      margin: 0,
-      padding: 0,
-    },
-  };
 
   return (
     <ScreenContainer>
-      <CustomCalendar
-        theme={calendarTheme}
-        renderArrow={(direction: 'right' | 'left') => {
-          return (
-            <MaterialCommunityIcons
-              name={`chevron-${direction}`}
-              size={24}
-              color={theme.onBackground}
-            />
-          );
-        }}
-        onDayPress={setDay}
-        markedDates={
-          day && {
-            [day.dateString]: {
-              selected: true,
-            },
-          }
-        }
-        hideExtraDays
-      />
-      <Text style={{ color: theme.onBackground }}>
+      <CustomCalendar day={day} setDay={setDay} tasks={tasks} />
+      <DayTitle>
         {ptBR.dayNames[new Date(day?.timestamp!).getUTCDay()!]} -{' '}
         {day?.day.toString().padStart(2, '0')} de{' '}
         {ptBR.monthNames[new Date(day?.timestamp!).getUTCMonth()!]} de {day?.year}
-      </Text>
+      </DayTitle>
+      <FlatList
+        data={tasks.filter((task) => task.date === day.dateString)}
+        style={{ flexShrink: 0, marginBottom: 250 }}
+        keyExtractor={(item) => item.title}
+        contentContainerStyle={{ gap: 24 }}
+        renderItem={({ item }) => <Task {...item} time={item.time || ''} showTime />}
+        ListFooterComponent={() => <View style={{ height: 40 }}></View>}
+        ListEmptyComponent={<EmptyListText>Nenhuma tarefa para este dia</EmptyListText>}
+      />
     </ScreenContainer>
   );
 }
-
-const CustomCalendar = styled(Calendar)`
-  font-family: 'Montserrat-Regular';
-  width: 100%;
-  background-color: transparent;
-  padding: 0;
-`;

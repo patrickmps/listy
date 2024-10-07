@@ -1,16 +1,25 @@
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import styled from 'styled-components/native';
 
-export const Row = styled.View`
+export const Wrapper = styled.View`
   flex-direction: row;
-  gap: 10px;
-  align-items: flex-start;
+  align-items: center;
+  margin-bottom: 24px;
 `;
 
-export const Column = styled.View`
-  flex-direction: column;
+export const WrapperTask = styled.Pressable`
   flex: 1;
-  gap: 7px;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  margin-left: 16px;
+`;
+
+export const ContainerTask = styled.View``;
+
+export const ContainerInfos = styled.View`
+  flex-direction: row;
+  margin-right: 16px;
 `;
 
 export const TaskTitle = styled.Text<{ checked: boolean }>`
@@ -30,7 +39,9 @@ export const Tag = styled.Text`
   color: ${({ theme }) => theme.primary};
   border-radius: 8px;
   padding: 1px 8px;
+  margin-right: 16px;
 `;
+
 export const Time = styled.Text`
   font-family: 'Montserrat-Regular';
   font-size: 16px;

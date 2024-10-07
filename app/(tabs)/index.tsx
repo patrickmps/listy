@@ -1,17 +1,59 @@
+import { TaskProps } from '@/@types/task';
+import { Filter } from '@/components/Filter';
 import { Input } from '@/components/Input';
 import { ScreenContainer } from '@/components/ScreenContainer';
 import { Select } from '@/components/Select';
 import { Task } from '@/components/Task';
-import { MaterialCommunityIcons } from '@expo/vector-icons';
-import { useState } from 'react';
-import { TouchableOpacity, View } from 'react-native';
+import { useTaskContext } from '@/hooks/useTaskContext';
+import { useEffect, useState } from 'react';
+import { FlatList, View } from 'react-native';
+import styled from 'styled-components/native';
 
 export default function TabOneScreen() {
+  const { tasks, getCategories } = useTaskContext();
   const [selectedCategory, setSelectedCategory] = useState<string>('');
+  const [filteredTasks, setFilteredTasks] = useState<TaskProps[]>([]);
+
+  const [categories, setCategories] = useState<string[]>([]);
+
+  useEffect(() => {
+    setFilteredTasks(tasks);
+    if (selectedCategory && selectedCategory !== 'todas') {
+      setFilteredTasks(tasks.filter((task) => task.category === selectedCategory));
+    }
+    setCategories(getCategories());
+  }, [getCategories, tasks, selectedCategory]);
+
+  const handleFilterOption = (option: string) => {
+    let newTasks = [...tasks];
+
+    if (option === 'Ordem crescente') {
+      newTasks = newTasks.sort((a, b) => a.title.localeCompare(b.title));
+    } else if (option === 'Ordem decrescente') {
+      newTasks = newTasks.sort((a, b) => b.title.localeCompare(a.title));
+    } else if (option === 'Em aberto') {
+      newTasks = newTasks.filter((task) => !task.done);
+    } else if (option === 'Concluídas') {
+      newTasks = newTasks.filter((task) => task.done);
+    } else {
+      newTasks = tasks;
+    }
+
+    if (selectedCategory && selectedCategory !== 'todas') {
+      newTasks = newTasks.filter((task) => task.category === selectedCategory);
+    }
+
+    setFilteredTasks(newTasks);
+  };
+
+  const handleSearch = (text: string) => {
+    const newTasks = tasks.filter((task) => task.title.toLowerCase().includes(text.toLowerCase()));
+    setFilteredTasks(newTasks);
+  };
 
   return (
     <ScreenContainer>
-      <Input />
+      <Input onSearch={handleSearch} />
       <View
         style={{
           flexDirection: 'row',
@@ -23,34 +65,43 @@ export default function TabOneScreen() {
         <Select
           labelField="name"
           valueField="value"
+          placeholder="Selecionar"
           data={[
-            { name: 'categoria 1', value: 'categoria 1' },
-            { name: 'categoria 2', value: 'categoria 2' },
-            { name: 'categoria 3', value: 'categoria 3' },
-            { name: 'categoria 4', value: 'categoria 4' },
-            { name: 'categoria 5', value: 'categoria 5' },
-            { name: 'categoria 6', value: 'categoria 6' },
-            { name: 'categoria 7', value: 'categoria 7' },
-            { name: 'categoria 8', value: 'categoria 8' },
-            { name: 'categoria 9', value: 'categoria 9' },
-            { name: 'categoria 10', value: 'categoria 10' },
+            ...categories.map((category) => ({ name: category, value: category })),
+            { name: 'Todas as tarefas', value: 'todas' },
           ]}
           value={selectedCategory}
           onChange={(item) => setSelectedCategory(item.value)}
         />
-        <TouchableOpacity
-          style={{
-            width: 40,
-            height: 40,
-            alignItems: 'center',
-            justifyContent: 'center',
-            backgroundColor: '#176684',
-            borderRadius: 10,
-          }}>
-          <MaterialCommunityIcons name="filter-variant" size={24} color="white" />
-        </TouchableOpacity>
+        <Filter onFilter={handleFilterOption} />
       </View>
-      <Task title="Tarefa 1" date="2024-08-16" time="18:00" />
+
+      <FlatList
+        data={filteredTasks}
+        style={{ flexShrink: 0 }}
+        keyExtractor={(item) => item.title}
+        contentContainerStyle={{ gap: 5 }}
+        ListFooterComponent={() => <View style={{ height: 40 }}></View>}
+        renderItem={({ item }) => (
+          <Task
+            id={item.id}
+            title={item.title}
+            date={item.date.split('-').reverse().join('/')}
+            time={item.time}
+            done={item.done}
+            showTime={true}
+          />
+        )}
+        ListEmptyComponent={<EmptyListText>Nenhuma tarefa criada</EmptyListText>}
+        showsVerticalScrollIndicator={false}
+      />
     </ScreenContainer>
   );
 }
+
+const EmptyListText = styled.Text`
+  font-family: 'Montserrat-Regular';
+  font-size: 14px;
+  color: ${({ theme }) => theme.onBackground};
+  margin: 20px 0;
+`;

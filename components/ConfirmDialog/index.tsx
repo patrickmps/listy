@@ -34,13 +34,15 @@ export const ConfirmDialog = ({
             Tem certeza que deseja excluir está tarefa? Isso não poderá ser desfeito.
           </ModalText>
           <ModalFooter>
-            <ModalButton onPress={onRequestClose}>
+            <ModalButton
+              style={({ pressed }) => (pressed ? { opacity: 0.5 } : { opacity: 1 })}
+              onPress={onRequestClose}>
               <ModalButtonText>Cancelar</ModalButtonText>
             </ModalButton>
-            <ModalButton>
-              <ModalButtonText type="danger" onPress={onAction}>
-                Excluir
-              </ModalButtonText>
+            <ModalButton
+              style={({ pressed }) => (pressed ? { opacity: 0.5 } : { opacity: 1 })}
+              onPress={onAction}>
+              <ModalButtonText type="danger">Excluir</ModalButtonText>
             </ModalButton>
           </ModalFooter>
         </ModalContent>

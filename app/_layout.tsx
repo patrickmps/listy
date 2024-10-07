@@ -1,14 +1,16 @@
-import { ThemeProvider } from 'styled-components/native';
 import { useFonts } from 'expo-font';
 import { Stack } from 'expo-router';
 import * as SplashScreen from 'expo-splash-screen';
 import { useEffect } from 'react';
 import 'react-native-reanimated';
+import { ThemeProvider } from 'styled-components/native';
 
 import { useColorScheme } from '@/components/useColorScheme';
 
-import light from '@/theme/light';
+import { TaskProvider } from '@/contexts/TaskContext';
 import dark from '@/theme/dark';
+import light from '@/theme/light';
+import { StatusBar } from 'react-native';
 
 export {
   // Catch any errors thrown by the Layout component.
@@ -65,10 +67,27 @@ function RootLayoutNav() {
   const colorScheme = useColorScheme();
 
   return (
-    <ThemeProvider theme={colorScheme === 'dark' ? dark : light}>
-      <Stack>
-        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-      </Stack>
-    </ThemeProvider>
+    <TaskProvider>
+      <ThemeProvider theme={colorScheme === 'dark' ? dark : light}>
+        <StatusBar />
+        <Stack
+          screenOptions={{
+            headerStyle: {
+              backgroundColor: colorScheme === 'dark' ? '#0F1417' : '#F6FAFE',
+            },
+            headerTitleStyle: {
+              fontFamily: 'PlayfairDisplay-SemiBoldItalic',
+              color: '#0F3F51',
+            },
+            headerTitleAlign: 'center',
+            headerTintColor: '#67A1B7',
+            headerShadowVisible: false,
+          }}>
+          <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+          <Stack.Screen name="details/index" options={{ title: 'Detalhes da Tarefa' }} />
+          <Stack.Screen name="new-task/index" />
+        </Stack>
+      </ThemeProvider>
+    </TaskProvider>
   );
 }
