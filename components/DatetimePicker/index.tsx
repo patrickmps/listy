@@ -37,7 +37,7 @@ export function DatetimePicker({ mode, handleData, value }: DatetimePickerProps)
   };
 
   const handleConfirm = (date: Date) => {
-    const formattedDate = date.toLocaleString().split(' ')[0].split('/').reverse().join('-');
+    const formattedDate = date.toLocaleDateString().split('/').reverse().join('-');
     const formattedTime = date.toLocaleTimeString([], {
       hour: '2-digit',
       minute: '2-digit',
