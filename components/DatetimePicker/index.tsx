@@ -36,22 +36,15 @@ export function DatetimePicker({ mode, handleData, value }: DatetimePickerProps)
     });
   };
 
-  function formatDate(date: Date): string {
-    const year = date.getUTCFullYear();
-    const month = (date.getUTCMonth() + 1).toString().padStart(2, '0'); // Meses são de 0 a 11
-    const day = date.getUTCDate().toString().padStart(2, '0');
-
-    return `${year}-${month}-${day}`;
-  }
-
   const handleConfirm = (date: Date) => {
+    const formattedDate = date.toLocaleString().split(' ')[0].split('/').reverse().join('-');
     const formattedTime = date.toLocaleTimeString([], {
       hour: '2-digit',
       minute: '2-digit',
     });
 
     setSelectedDate(date);
-    handleData(mode === 'date' ? formatDate(date) : formattedTime);
+    handleData(mode === 'date' ? formattedDate : formattedTime);
     hideDatePicker();
   };
 
